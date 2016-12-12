@@ -1,0 +1,294 @@
+# depslib dependency file v1.0
+1469821901 source:/dyskFat/Projects/GLGame/main.cpp
+	"DisplayManager.h"
+
+1469821681 /dyskFat/Projects/GLGame/DisplayManager.h
+	<string>
+	<SDL2/SDL.h>
+	<GL/glew.h>
+	<iostream>
+	<thread>
+	"glm/glm.hpp"
+
+1469821795 source:/dyskFat/Projects/GLGame/DisplayManager.cpp
+	"DisplayManager.h"
+
+1469977394 source:/dyskFat/Projects/GLGame/source/DisplayManager.cpp
+	"DisplayManager.h"
+
+1469977368 /dyskFat/Projects/GLGame/source/DisplayManager.h
+	<string>
+	<SDL2/SDL.h>
+	<GL/glew.h>
+	<iostream>
+	<thread>
+	"glm/glm.hpp"
+
+1470086636 source:/dyskFat/Projects/GLGame/source/GLgame.cpp
+	"GLgame.h"
+
+1470173432 /dyskFat/Projects/GLGame/source/GLgame.h
+	<vector>
+	<thread>
+	"UTIL.h"
+	"Scene.h"
+	"EnitityRenderer.h"
+	"DisplayManager.h"
+	"LoadingShader.h"
+	"GUIRenderer.h"
+	"TerrainRenderer.h"
+
+1470172160 /dyskFat/Projects/GLGame/source/UTIL.h
+	<time.h>
+	<GL/glew.h>
+	<vector>
+	"glm/glm.hpp"
+	"glm/gtc/matrix_transform.hpp"
+	"glm/gtx/transform.hpp"
+	"glm/gtc/type_ptr.hpp"
+	<sstream>
+	<iostream>
+
+1469968580 source:/dyskFat/Projects/GLGame/source/main.cpp
+	"GLGame.h"
+	"Test_Scene.h"
+
+1469993242 source:/dyskFat/Projects/GLGame/source/ShaderProgram.cpp
+	"ShaderProgram.h"
+
+1470493074 /dyskFat/Projects/GLGame/source/ShaderProgram.h
+	<string>
+	<fstream>
+	<iostream>
+	<GL/glew.h>
+	"glm/glm.hpp"
+	"glm/gtc/matrix_transform.hpp"
+	"glm/gtx/transform.hpp"
+	"glm/gtc/type_ptr.hpp"
+
+1469984342 source:/dyskFat/Projects/GLGame/source/Loader.cpp
+	"Loader.h"
+
+1470170082 /dyskFat/Projects/GLGame/source/Loader.h
+	<iostream>
+	<fstream>
+	<string>
+	<vector>
+	"Model.h"
+	"UTIL.h"
+	<assimp/Importer.hpp>
+	<assimp/scene.h>
+	<assimp/postprocess.h>
+	<stdlib.h>
+	<FreeImage.h>
+
+1470263608 /dyskFat/Projects/GLGame/source/Model.h
+	<string>
+	<vector>
+	"glm/glm.hpp"
+	"UTIL.h"
+	"Material.h"
+
+1470262582 /dyskFat/Projects/GLGame/source/Material.h
+	<string>
+	"glm/glm.hpp"
+	"UTIL.h"
+
+1470163894 /dyskFat/Projects/GLGame/source/Transform.h
+	"glm/glm.hpp"
+
+1468745028 source:/dyskFat/Projects/GLGame/source/Model.cpp
+	"Model.h"
+
+1470173414 source:/dyskFat/Projects/GLGame/source/EnitityRenderer.cpp
+	"EnitityRenderer.h"
+
+1470159760 /dyskFat/Projects/GLGame/source/EnitityRenderer.h
+	<string>
+	<vector>
+	"glm/glm.hpp"
+	"Transform.h"
+	"Entity.h"
+	"EntityShader.h"
+	"Scene.h"
+
+1470170620 /dyskFat/Projects/GLGame/source/Entity.h
+	<string>
+	"glm/glm.hpp"
+	"Transform.h"
+	"UTIL.h"
+	<vector>
+	<memory>
+
+1470087264 /dyskFat/Projects/GLGame/source/EntityShader.h
+	<vector>
+	"ShaderProgram.h"
+	"glm/gtc/matrix_transform.hpp"
+	"Light.h"
+
+1457532650 /dyskFat/Projects/GLGame/source/Light.h
+	"glm/glm.hpp"
+
+1471267329 /dyskFat/Projects/GLGame/source/Scene.h
+	<memory>
+	<string>
+	<vector>
+	"Entity.h"
+	"Loader.h"
+	"Light.h"
+	"Camera.h"
+	"Terrain.h"
+	"GUI.h"
+
+1470349820 /dyskFat/Projects/GLGame/source/Camera.h
+	<SDL2/SDL.h>
+	"glm/glm.hpp"
+	"UTIL.h"
+
+1470166542 source:/dyskFat/Projects/GLGame/source/Entity.cpp
+	"Entity.h"
+
+1469972412 source:/dyskFat/Projects/GLGame/source/EntityShader.cpp
+	"EntityShader.h"
+
+1469988640 source:/dyskFat/Projects/GLGame/source/FirstPersonCamera.cpp
+	"FirstPersonCamera.h"
+
+1469985674 /dyskFat/Projects/GLGame/source/FirstPersonCamera.h
+	"Camera.h"
+	<stdio.h>
+	<stdlib.h>
+
+1455746060 source:/dyskFat/Projects/GLGame/source/Light.cpp
+	"Light.h"
+
+1470173318 /dyskFat/Projects/GLGame/source/Test_Scene.h
+	<string>
+	<vector>
+	"Scene.h"
+	"ThridPersonCamera.h"
+	"FirstPersonCamera.h"
+	"Player.h"
+
+1469973310 /dyskFat/Projects/GLGame/source/ThridPersonCamera.h
+	"Camera.h"
+	<stdio.h>
+	<stdlib.h>
+
+1469988808 source:/dyskFat/Projects/GLGame/source/FreeType.cpp
+	"freetype.h"
+
+1469972468 source:/dyskFat/Projects/GLGame/source/GUIShader.cpp
+	"GUIShader.h"
+
+1468784516 /dyskFat/Projects/GLGame/source/GUIShader.h
+	<vector>
+	"ShaderProgram.h"
+	"glm/gtc/matrix_transform.hpp"
+
+1469972422 source:/dyskFat/Projects/GLGame/source/LoadingShader.cpp
+	"LoadingShader.h"
+
+1469130442 /dyskFat/Projects/GLGame/source/LoadingShader.h
+	<vector>
+	"ShaderProgram.h"
+	"glm/gtc/matrix_transform.hpp"
+	"Camera.h"
+	"Light.h"
+
+1470170082 /dyskFat/Projects/GLGame/source/GUIRenderer.h
+	<vector>
+	<GL/glew.h>
+	"Loader.h"
+	"GUIShader.h"
+	"GUITexture.h"
+	"GUIText.h"
+	"GUIButton.h"
+
+1469283320 /dyskFat/Projects/GLGame/source/GUITexture.h
+	"glm/gtc/matrix_transform.hpp"
+
+1469977710 /dyskFat/Projects/GLGame/source/GUIText.h
+	"GUITexture.h"
+	"FreeType.h"
+	"FontShader.h"
+
+1470170082 /dyskFat/Projects/GLGame/source/FontShader.h
+	"ShaderProgram.h"
+	"glm/gtc/matrix_transform.hpp"
+	"Camera.h"
+	"Light.h"
+	"UTIL.h"
+
+1470258500 /dyskFat/Projects/GLGame/source/GUIButton.h
+	"GUITexture.h"
+	"FreeType.h"
+	"FontShader.h"
+
+1469993058 /dyskFat/Projects/GLGame/source/FreeType.h
+	<freetype2/ft2build.h>
+	<freetype2/freetype.h>
+	<freetype2/ftglyph.h>
+	<freetype2/ftoutln.h>
+	<freetype2/fttrigon.h>
+	<fstream>
+	<iostream>
+	<SDL2/SDL.h>
+	<GL/glew.h>
+	<vector>
+	<string>
+	<stdexcept>
+
+1470349684 source:/dyskFat/Projects/GLGame/source/Camera.cpp
+	"Camera.h"
+
+1469998634 source:/dyskFat/Projects/GLGame/source/ThridPersonCamera.cpp
+	"ThridPersonCamera.h"
+
+1470513596 /dyskFat/Projects/GLGame/source/Terrain.h
+	"Material.h"
+	"Model.h"
+	<math.h>
+	"glm/glm.hpp"
+	"Loader.h"
+	"UTIL.h"
+	<SDL2/SDL.h>
+	"Transform.h"
+	"Entity.h"
+
+1469985276 source:/dyskFat/Projects/GLGame/source/TerrainShader.cpp
+	"TerrainShader.h"
+
+1469987068 /dyskFat/Projects/GLGame/source/TerrainShader.h
+	<vector>
+	"ShaderProgram.h"
+	"glm/gtc/matrix_transform.hpp"
+	"Light.h"
+
+1470089474 source:/dyskFat/Projects/GLGame/source/Terrain.cpp
+	"Terrain.h"
+
+1469992644 source:/dyskFat/Projects/GLGame/source/TerrainRenderer.cpp
+	"TerrainRenderer.h"
+
+1469985212 /dyskFat/Projects/GLGame/source/TerrainRenderer.h
+	<vector>
+	"Terrain.h"
+	"TerrainShader.h"
+	"Scene.h"
+
+1470166000 source:/dyskFat/Projects/GLGame/source/Player.cpp
+	"Player.h"
+
+1470164914 /dyskFat/Projects/GLGame/source/Player.h
+	<SDL2/SDL.h>
+	"Entity.h"
+
+1469282902 /dyskFat/Projects/GLGame/source/GUI.h
+	"GUITexture.h"
+	"GUIText.h"
+	"GUIButton.h"
+	"FreeType.h"
+	"FontShader.h"
+	<vector>
+

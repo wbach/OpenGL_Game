@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GLGame" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Linux/Debug/GLGame" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Intermediate/Linux/obj/Debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Linux/Release/GLGame" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Intermediate/Linux/obj/Release" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="source/Camera.cpp" />
+		<Unit filename="source/Camera.h" />
+		<Unit filename="source/DisplayManager.cpp" />
+		<Unit filename="source/DisplayManager.h" />
+		<Unit filename="source/EnitityRenderer.cpp" />
+		<Unit filename="source/EnitityRenderer.h" />
+		<Unit filename="source/Entity.cpp" />
+		<Unit filename="source/Entity.h" />
+		<Unit filename="source/EntityShader.cpp" />
+		<Unit filename="source/EntityShader.h" />
+		<Unit filename="source/FirstPersonCamera.cpp" />
+		<Unit filename="source/FirstPersonCamera.h" />
+		<Unit filename="source/FontShader.h" />
+		<Unit filename="source/FreeType.cpp" />
+		<Unit filename="source/FreeType.h" />
+		<Unit filename="source/GLgame.cpp" />
+		<Unit filename="source/GLgame.h" />
+		<Unit filename="source/GUI.h" />
+		<Unit filename="source/GUIButton.h" />
+		<Unit filename="source/GUIRenderer.h" />
+		<Unit filename="source/GUIShader.cpp" />
+		<Unit filename="source/GUIShader.h" />
+		<Unit filename="source/GUIText.h" />
+		<Unit filename="source/GUITexture.h" />
+		<Unit filename="source/Light.cpp" />
+		<Unit filename="source/Light.h" />
+		<Unit filename="source/Loader.cpp" />
+		<Unit filename="source/Loader.h" />
+		<Unit filename="source/LoadingShader.cpp" />
+		<Unit filename="source/LoadingShader.h" />
+		<Unit filename="source/Material.h" />
+		<Unit filename="source/Model.cpp" />
+		<Unit filename="source/Model.h" />
+		<Unit filename="source/Player.cpp" />
+		<Unit filename="source/Player.h" />
+		<Unit filename="source/Scene.cpp" />
+		<Unit filename="source/Scene.h" />
+		<Unit filename="source/ShaderProgram.cpp" />
+		<Unit filename="source/ShaderProgram.h" />
+		<Unit filename="source/Terrain.cpp" />
+		<Unit filename="source/Terrain.h" />
+		<Unit filename="source/TerrainRenderer.cpp" />
+		<Unit filename="source/TerrainRenderer.h" />
+		<Unit filename="source/TerrainShader.cpp" />
+		<Unit filename="source/TerrainShader.h" />
+		<Unit filename="source/Test_Scene.h" />
+		<Unit filename="source/ThridPersonCamera.cpp" />
+		<Unit filename="source/ThridPersonCamera.h" />
+		<Unit filename="source/Transform.h" />
+		<Unit filename="source/UTIL.h" />
+		<Unit filename="source/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
