@@ -96,12 +96,12 @@ int CRPGMainScene::Initialize()
 	AddGameObject(player.GetHero(), true);
 
 	shared_ptr<CEntity> shop = CreateAnimEntityFromFile("Data/Meshes/Shop/shopMale_idle.fbx", ColiderType::SPHERE_COLIDER, glm::vec3(0, 1.58, 0), false, CreatePositionVector(102, 125), glm::vec3(0, 180, 0));
-	AddGameObject(shop, true, true);
+	AddGameObject(shop, true, false);
 
 	shared_ptr<CEntity> vayne = CreateAnimEntityFromFile("Data/Meshes/Vayne/Vayne_idle.fbx", ColiderType::SPHERE_COLIDER, glm::vec3(0, 1.8, 0), false, CreatePositionVector(100, 125), glm::vec3(0, 180, 0));
 	uint mid = vayne->GetModelId();
 	GetLoader().m_Models[mid]->m_UseFakeLight = true;
-	AddGameObject(vayne, true, true);
+	AddGameObject(vayne, true, false);
 
 	shared_ptr<CEntity> alistar = CreateAnimEntityFromFile("Data/Meshes/Alistar/Alistar_idle.fbx", ColiderType::SPHERE_COLIDER, glm::vec3(0, 2.8, 0), false, CreatePositionVector(98, 125), glm::vec3(0, 180, 0));
 	AddGameObject(alistar, true, true);

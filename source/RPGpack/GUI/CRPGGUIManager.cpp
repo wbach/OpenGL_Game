@@ -23,7 +23,7 @@ void CRPGGUIManager::RenderHerosBars(const glm::mat4 & projection_matrix, const 
 	{
 		glm::mat4 pv = projection_matrix * view_matrix;
 		glm::vec4 pos = pv * glm::vec4(e->GetWorldPosition() + glm::vec3(0, 2, 0), 1.f);
-		cout << pos.z << " " << pos.w << std::endl;
+	//	cout << pos.z << " " << pos.w << std::endl;
 		//pos.z = -pos.z;
 		float distance = pos.z;
 		if (pos.z < 0 || distance > 30)
@@ -34,12 +34,11 @@ void CRPGGUIManager::RenderHerosBars(const glm::mat4 & projection_matrix, const 
 			glm::vec2 p(pos.x, pos.y);
 		
 		//Utils::PrintVector("V: ", el->GetOrginalSize() *  pos.z);
-
 		el->m_IsVisible = true;
 		el->SetPosition(p);
-		//el->SetSize(el->GetOrginalSize() *  pos.z);
-		m_TmpElements.push_back(std::shared_ptr<CGUIElement>(el->Clone()));
-		el->m_IsVisible = false;
+		el->SetSize(el->GetOrginalSize() *  pos.z);
+	//	m_TmpElements.push_back(std::shared_ptr<CGUIElement>(el->Clone()));
+	//	el->m_IsVisible = false;
 	}
 }
 
