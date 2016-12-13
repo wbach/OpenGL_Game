@@ -109,6 +109,16 @@ int CRPGMainScene::Initialize()
 //	shared_ptr<CEntity> fwar = CreateAnimEntityFromFile("Data/Meshes/Female warriors/Femalewarriors.fbx", ColiderType::NONE_COLIDER, glm::vec3(0, 1.8, 0), false, CreatePositionVector(96, 125), glm::vec3(0, 180, 0));
 //	AddGameObject(fwar, true);
 
+	int water_dudv_id = m_Loader.LoadTexture("Data/Textures/waterDUDV.png");
+	int water_normal_id = m_Loader.LoadTexture("Data/Textures/waternormal.png");
+	shared_ptr<CTextInfo> water_dudv = m_Loader.m_Textures[water_dudv_id];
+	shared_ptr<CTextInfo> water_normal = m_Loader.m_Textures[water_normal_id];
+	shared_ptr<CGameObject> w = std::make_shared<CWaterTile>(glm::vec3(250, -0.1, 110), 100.f, 0.1f, water_dudv.get(), water_normal.get(), glm::vec4(43.0f / 255.f, 106.f / 255.f, 134.f / 255.f, 0.2));
+	AddGameObject(w, true);
+	COpenGLObject* wo = dynamic_cast<COpenGLObject*>(w.get());
+	if(wo !=nullptr)
+		m_Loader.AddObjectToOpenGLLoadingPass(wo);
+
 	//Create Camera
 	if (player.GetHero() != nullptr)
 		m_Camera = make_shared<CThirdPersonCamera>(&m_Game->GetInputManager(), player.GetHero()->GetReferencedPosition(), player.GetHero()->GetReferencedRotation());
