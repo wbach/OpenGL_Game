@@ -1,4 +1,4 @@
-#include "GLgame.h"
+﻿#include "GLgame.h"
 #include "../Input/InputManager.h"
 CGame::CGame()
 : m_DisplayManager()
@@ -42,9 +42,6 @@ void CGame::Initialize(std::shared_ptr<CApi>& api)
 	m_DisplayManager.SetInput(m_InputManager.m_Input);
 //	m_DisplayManager.SetFullScreen(m_IsFullScreen);
 	m_DisplayManager.SetRefreshRate(m_RefreshRate);
-
-
-
 
 	//renderStartSeries();
 
@@ -176,8 +173,8 @@ void CGame::GameLoop()
 			{
 			case 1: m_ApiMessage = ApiMessages::QUIT; break;
 			}
-			m_MasterRenderer.Render(m_CurrScene, m_IsShadows);
-		//	m_SimpleRenderer.Render(m_CurrScene);
+			//m_MasterRenderer.Render(m_CurrScene, m_IsShadows);
+			m_SimpleRenderer.Render(m_CurrScene);
 
 			//m_MasterRenderer.DebugRenderTextures();
 

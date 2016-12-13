@@ -23,6 +23,8 @@ void CSimpleMasterRenderer::Init(CCamera * camera, glm::vec2 window_size, glm::m
 
 void CSimpleMasterRenderer::Render(CScene* scene)
 {
+	std::list<CTerrain*> current_terrains = scene->GetTerrainsInCameraRange();
+
 	scene->CheckObjectsInCameraRange();
 
 	m_SkyBoxRenderer.Render(scene->GetViewMatrix(), scene->m_DayNightCycle.GetDeltaTime(), scene->m_DayNightCycle.GetDayNightBlendFactor());
@@ -34,6 +36,15 @@ void CSimpleMasterRenderer::Render(CScene* scene)
 	{
 		CModel* model = scene->GetLoader().m_Models[entity->GetModelId()].get();
 		RenderEntity(scene, entity, *model);
+		// **************************************Trees use entity render******************************************
+		for (const auto& terrain : current_terrains)
+		{
+			for (auto& model : terrain->m_Trees)
+			{
+				CModel* m = scene->GetLoader().m_Models[model].get();
+				RenderEntity(scene, nullptr, *m, m->GetInstancedSize());
+			}
+		}
 	}
 	m_SimpleEntityShader.Stop();
 
@@ -41,7 +52,7 @@ void CSimpleMasterRenderer::Render(CScene* scene)
 
 	m_SimpleTerrainShader.Start();
 	m_SimpleTerrainShader.LoadViewMatrix(scene->GetViewMatrix());
-	for (const auto& terrain : scene->GetTerrainsInCameraRange())
+	for (const auto& terrain : current_terrains)
 	{
 		if (!terrain->m_Model.GetMeshes()[0].IsReadyToRender() || !terrain->m_IsInit)
 			continue;
@@ -82,7 +93,7 @@ void CSimpleMasterRenderer::SetSkyBoxMesh(const CMesh* mesh)
 {
 	m_SkyBoxRenderer.SetMesh(mesh);
 }
-void CSimpleMasterRenderer::RenderEntity(CScene* scene, CEntity* entity, CModel & model) const
+void CSimpleMasterRenderer::RenderEntity(CScene* scene, CEntity* entity, CModel & model, const int& instaced_size) const
 {
 
 	for (const CMesh& mesh : model.GetMeshes())
@@ -111,21 +122,26 @@ void CSimpleMasterRenderer::RenderEntity(CScene* scene, CEntity* entity, CModel 
 		}
 
 		m_SimpleEntityShader.LoadUseBonesTransformation(static_cast<float>(mesh.UseBoneTransform()));
-		if (model.m_BoneUpdate)
+		if (entity != nullptr)
 		{
-			const std::vector<glm::mat4>& transforms = model.GetBonesTransforms(entity->GetAnimationFrame());// m_BoneTransformMatrixes;
-
-			int mid = 0;
-			for (const glm::mat4& m : transforms)
+			if (model.m_BoneUpdate)
 			{
-				m_SimpleEntityShader.LoadBoneTransform(m, mid++);
+				const std::vector<glm::mat4>& transforms = model.GetBonesTransforms(entity->GetAnimationFrame());// m_BoneTransformMatrixes;
+
+				int mid = 0;
+				for (const glm::mat4& m : transforms)
+				{
+					m_SimpleEntityShader.LoadBoneTransform(m, mid++);
+				}
 			}
 		}
+		
 
 		if (model.UseInstacedRendering())
 		{
 			m_SimpleEntityShader.LoadUseInstancedRendering(1.f);
-			glDrawElementsInstanced(GL_TRIANGLES, mesh.GetVertexCount(), GL_UNSIGNED_SHORT, 0, entity->GetTransformMatrixes().size());
+			int size = entity != nullptr ? entity->GetTransformMatrixes().size() : instaced_size;
+			glDrawElementsInstanced(GL_TRIANGLES, mesh.GetVertexCount(), GL_UNSIGNED_SHORT, 0, size);
 		}
 		else
 		{

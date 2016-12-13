@@ -92,8 +92,8 @@ GLuint CWaterFrameBuffers::CreateTextureAttachment(const glm::vec2 & size) const
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, static_cast<int>(size.x), static_cast<int>(size.y), 0, GL_RGB, GL_UNSIGNED_BYTE, (void*)NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-		texture, 0);
+	//glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,	texture, 0);
+	glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture, 0);
 	return texture;
 }
 

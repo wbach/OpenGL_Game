@@ -12,7 +12,7 @@ public:
 
 	void SetSkyBoxTextures(CTextInfo* day, CTextInfo*  night);
 	void SetSkyBoxMesh(const CMesh* mesh);
-	void RenderEntity(CScene* scene, CEntity* entity, CModel & model) const;
+	void RenderEntity(CScene* scene, CEntity* entity, CModel & model, const int& instaced_size = 1) const;
 	//CSkyBoxRenderer& GetSkyBoxRenderer();
 
 protected:
