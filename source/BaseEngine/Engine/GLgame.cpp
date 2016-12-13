@@ -13,6 +13,7 @@ CGame::CGame()
 , m_IsShadows(true)
 , m_GrassViewDistance(500)
 , m_IsFullScreen(false)
+, m_UsingSimpleRender(false)
 , m_RefreshRate(60)
 , m_ShadowMapSize(1024)
 , m_SoundVolume(1.0)
@@ -173,8 +174,10 @@ void CGame::GameLoop()
 			{
 			case 1: m_ApiMessage = ApiMessages::QUIT; break;
 			}
-			//m_MasterRenderer.Render(m_CurrScene, m_IsShadows);
-			m_SimpleRenderer.Render(m_CurrScene);
+			if(!m_UsingSimpleRender)
+				m_MasterRenderer.Render(m_CurrScene, m_IsShadows);
+			else
+				m_SimpleRenderer.Render(m_CurrScene);
 
 			//m_MasterRenderer.DebugRenderTextures();
 
