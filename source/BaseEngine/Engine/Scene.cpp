@@ -88,45 +88,6 @@ void CScene::AddGameObject(shared_ptr<CGameObject> game_object, bool direct, boo
 	}
 }
 
-void CScene::CreateNewEmptyTerrain(string name, float x, float z)
-{
-	string height_map = "Data/Terrain/HeightMaps/terrain_" + name + ".terrain";// +name + ".terrain";
-	CreateEmptyHeightMap(height_map,32,32);
-	string blend_map = "Data/Terrain/BlendMaps/terrain_" + name + ".png";
-	if (!Utils::CheckFile(blend_map)) 
-	m_Loader.CreateEmptyImage(blend_map, 128, 128);
-
-	CTerrain* terrain = GetTerrain((int)x,(int) z);
-	if (terrain != nullptr)
-		terrain->Init(name,
-		x, z,
-		height_map, blend_map,
-		"Data/Textures/grass_ground.png", "Data/Textures/grass_ground.png",
-		"Data/Textures/165.png", "Data/Textures/165.png",
-		"Data/Textures/grassFlowers.png", "Data/Textures/grassFlowers.png",
-		"Data/Textures/sand.png", "Data/Textures/sand.png",
-		"Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png", "Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png"
-	);
-}
-
-void CScene::CreateEmptyHeightMap(string filename, int xx, int yy)
-{
-	if (Utils::CheckFile(filename)) return;
-	std::ofstream file;
-	//"Data/Terrain/HeightMaps/FloatTerrain" + to_string(xx)+ "x" + to_string(yy) + "Empty.terrain"
-	file.open(filename);
-	file << "r"<<xx<<"x" << yy << endl;
-	for (int y = 0; y < yy; y++)
-	{
-		for (int x = 0; x < xx; x++)
-		{
-			file << 0 << " ";
-		}
-		file << endl;
-	}
-	file.close();
-}
-
 void CScene::SaveHeightMaps()
 {
 	//for (const CTerrain& terrain : m_Terrains)
@@ -571,8 +532,8 @@ void CScene::CheckTerrainInCameraRange()
 				m_InteractedEntitiesInCameraRange.push_back(e);
 			}			
 
-			if (m_Camera->CheckFrustrumSphereCulling(terrain->m_WorldCenterPosition, terrain->GetSize() / 1.5f))
-				continue;
+			//if (m_Camera->CheckFrustrumSphereCulling(terrain->m_WorldCenterPosition, terrain->GetSize() / 1.5f)) continue;
+			
 			m_TerrainInCameraRange.push_back(terrain);
 
 			for (const auto& game_object : terrain->GetSubGameObjects())

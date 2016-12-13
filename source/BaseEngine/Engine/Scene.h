@@ -28,9 +28,7 @@ public:
 	void AddLight(CLight light) { m_Lights.push_back(light); }
 
 	void AddGameObject(shared_ptr<CGameObject> game_object, bool direct = false, bool interacted = false);
-	
-	void CreateNewEmptyTerrain(string name, float x, float z);
-	void CreateEmptyHeightMap(string filename, int x, int y);
+
 	void SaveHeightMaps();
 	void SaveBlendMaps();
 	void MergeTerrains(CTerrain& t1, CTerrain& t2, int axis);

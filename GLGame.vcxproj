@@ -211,6 +211,7 @@
     <ClCompile Include="source\BaseEngine\Shadows\ShadowMapRenderer.cpp" />
     <ClCompile Include="source\BaseEngine\Shadows\ShadowShader.cpp" />
     <ClCompile Include="source\BaseEngine\Terrain\Grass.cpp" />
+    <ClCompile Include="source\BaseEngine\Terrain\PerlinNoise.cpp" />
     <ClCompile Include="source\BaseEngine\Water\WaterFrameBuffer.cpp" />
     <ClCompile Include="source\BaseEngine\Water\WaterRenderer.cpp" />
     <ClCompile Include="source\BaseEngine\Water\WaterShader.cpp" />
@@ -307,6 +308,8 @@
     <ClInclude Include="source\BaseEngine\Shadows\ShadowMapRenderer.h" />
     <ClInclude Include="source\BaseEngine\Shadows\ShadowShader.h" />
     <ClInclude Include="source\BaseEngine\Terrain\Grass.h" />
+    <ClInclude Include="source\BaseEngine\Terrain\PerlinNoise.h" />
+    <ClInclude Include="source\BaseEngine\Terrain\TerrainGenerator.h" />
     <ClInclude Include="source\BaseEngine\Utils\GLM\GLMUtils.h" />
     <ClInclude Include="source\BaseEngine\Utils\OpenGL\OpenGLUtils.h" />
     <ClInclude Include="source\BaseEngine\Utils\Types.h" />

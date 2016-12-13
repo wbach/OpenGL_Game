@@ -6,6 +6,7 @@
 #include "../HeroClass/Knight.h"
 #include "../../RPGpack/GUI/CRPGGUIManager.h"
 #include "../Player.h"
+#include "../../BaseEngine/Terrain/TerrainGenerator.h"
 
 class CRPGMainScene : public CScene
 {

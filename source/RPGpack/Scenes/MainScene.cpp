@@ -7,6 +7,8 @@ CRPGMainScene::CRPGMainScene(CGame* game)
 {
 	m_Name = "RPG Main Scene";
 	m_SceneFile = "Data/Maps/MainRPGMap.map";
+//	m_TerrainViewRadius = 1;
+//	m_TerrainsCount = 5;
 }
 
 CRPGMainScene::~CRPGMainScene()
@@ -40,6 +42,10 @@ int CRPGMainScene::Initialize()
 		name += "Terrain" + to_string(x) + "x" + to_string(z);
 
 		//CreateNewEmptyTerrain(name, x, z);
+
+		CTerrainGenerator terrain_generator;
+		terrain_generator.CreateNewEmptyTerrain(name, x, z, 128, 128, true, TERRAIN_SIZE);
+
 		string height_map = "Data/Terrain/HeightMaps/terrain_" + name + ".terrain";// +name + ".terrain";
 		string blend_map = "Data/Terrain/BlendMaps/terrain_" + name + ".png";
 		//CreateEmptyHeightMap(height_map, 32, 32);
