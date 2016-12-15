@@ -212,6 +212,7 @@
     <ClCompile Include="source\BaseEngine\Shadows\ShadowShader.cpp" />
     <ClCompile Include="source\BaseEngine\Terrain\Grass.cpp" />
     <ClCompile Include="source\BaseEngine\Terrain\PerlinNoise.cpp" />
+    <ClCompile Include="source\BaseEngine\Terrain\TerrainGenerator.cpp" />
     <ClCompile Include="source\BaseEngine\Water\WaterFrameBuffer.cpp" />
     <ClCompile Include="source\BaseEngine\Water\WaterRenderer.cpp" />
     <ClCompile Include="source\BaseEngine\Water\WaterShader.cpp" />

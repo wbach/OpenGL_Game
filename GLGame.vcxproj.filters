@@ -321,6 +321,9 @@
     <ClCompile Include="source\BaseEngine\Terrain\PerlinNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\BaseEngine\Terrain\TerrainGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\BaseEngine\Display\DisplayManager.h">
@@ -405,9 +408,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\TestGame\Test_MainMenu.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="source\TestGame\Test_Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="source\BaseEngine\Shaders\LightPassShader.h">
@@ -637,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="source\BaseEngine\Terrain\PerlinNoise.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestGame\Test_Scene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

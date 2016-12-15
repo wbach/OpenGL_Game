@@ -8,7 +8,7 @@ CRPGMainScene::CRPGMainScene(CGame* game)
 	m_Name = "RPG Main Scene";
 	m_SceneFile = "Data/Maps/MainRPGMap.map";
 //	m_TerrainViewRadius = 1;
-//	m_TerrainsCount = 5;
+	m_TerrainsCount = 10;
 }
 
 CRPGMainScene::~CRPGMainScene()
@@ -22,8 +22,9 @@ int CRPGMainScene::Initialize()
 	for (unsigned int z = 0; z < m_TerrainsCount*m_TerrainsCount; z++)
 		m_Terrains.push_back(make_shared<CTerrain>(m_Loader));
 	int ti = 0;
+
 	uint x = -1;
-	uint z = 0;
+	uint z = 0 ;
 
 	for (auto& t : m_Terrains)
 	{
@@ -39,12 +40,12 @@ int CRPGMainScene::Initialize()
 
 		m_TerrainsPtr[ti++] = current_terrain;
 		string name;
-		name += "Terrain" + to_string(x) + "x" + to_string(z);
+		name += "Terrain" + to_string(z) + "x" + to_string(x);
 
 		//CreateNewEmptyTerrain(name, x, z);
 
 		CTerrainGenerator terrain_generator;
-		terrain_generator.CreateNewEmptyTerrain(name, x, z, 128, 128, true, TERRAIN_SIZE);
+		//terrain_generator.CreateNewEmptyTerrain(name, x, z, 128, 128, true, TERRAIN_SIZE);
 
 		string height_map = "Data/Terrain/HeightMaps/terrain_" + name + ".terrain";// +name + ".terrain";
 		string blend_map = "Data/Terrain/BlendMaps/terrain_" + name + ".png";
@@ -54,14 +55,16 @@ int CRPGMainScene::Initialize()
 			current_terrain->Init(name,
 				(float)x, (float)z,
 				height_map, blend_map,
-				"Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01.png",
-				"Data/Textures/G3_Architecture_Rock_01_Diffuse_01.png", "Data/Textures/G3_Architecture_Rock_01_Diffuse_01.png",
-				"Data/Textures/grassFlowers.png", "Data/Textures/grassFlowers.png",
-				"Data/Textures/G3_Nature_Wall_Stone_12_Diffuse_01.png", "Data/Textures/G3_Nature_Wall_Stone_12_Diffuse_01.png",
-				"Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png", "Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png"
+				"Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01_NRM.png",
+				"Data/Textures/165.png", "Data/Textures/165_norm.png",
+				"Data/Textures/G3_Nature_Ground_Path_03_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Path_03_Diffuse_01_NRM.png",
+				"Data/Textures/G3_Nature_Ground_Forest_01_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Forest_01_Diffuse_01_NRM.png",
+				"Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png", "Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01_Normal.png"
 			);
+			//continue;
+
 			string grass_file = "Data/Terrain/GrassPositions/terrain_" + name + ".terrain";
-			//current_terrain.GenerateGrassPositions(grass_file, 10000, 1.0f);
+		//	current_terrain->GenerateGrassPositions(grass_file, 10000, 1.0f);
 			current_terrain->InitGrassFromFile(grass_file, m_Loader.LoadTexture("Data/Textures/G3_Nature_Plant_Grass_06_Diffuse_01.png"));
 
 			for (int x = 1; x <= 6; x++)
@@ -77,7 +80,7 @@ int CRPGMainScene::Initialize()
 				}
 			}
 			string trees_file = "Data/Terrain/TreesPositions/terrain_" + name + ".terrain";
-			//current_terrain.GenerateTreePositions(trees_file, 1000, 7.f, current_terrain.m_Trees.size(), 2);
+		 //	current_terrain->GenerateTreePositions(trees_file, 1000, 7.f, current_terrain->m_Trees.size(), 2);
 			current_terrain->InitTreesFromFile(trees_file, glm::vec3(0, 10, 0));
 
 			//Flora

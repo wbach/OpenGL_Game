@@ -1,54 +1,84 @@
 #include "Terrain.h"
 int CTerrain::s_ID = 0;
 
-//glm::vec3 CalculateTangents(const SFace& f)
-//{
-//	glm::vec3 delat_pos_1 = f.vertex[1] - f.vertex[0];
-//	glm::vec3 delat_pos_2 = f.vertex[2] - f.vertex[0];
-//
-//	glm::vec2 delta_uv_1 = f.uv[1] - f.uv[0];
-//	glm::vec2 delta_uv_2 = f.uv[2] - f.uv[0];
-//
-//	float r = 1.0f / (delta_uv_1.x * delta_uv_2.y - delta_uv_1.y * delta_uv_2.x);
-//	delat_pos_1 *= delta_uv_2.y;
-//	delat_pos_1 *= delta_uv_1.y;
-//	glm::vec3 tangent = delat_pos_1 - delat_pos_2;
-//	tangent *= r;
-//	return tangent;
-//}
-//SFace CreateFace(const int& i1, const int& i2, const int& i3, vector<float>& vertices, std::vector<float>& texture_coords)
-//{
-//	SFace f1;
-//	f1.vertex[0] = glm::vec3(vertices[3 * i1], vertices[3 * i1 + 1], vertices[3 * i1 + 2]);
-//	f1.vertex[1] = glm::vec3(vertices[3 * i2], vertices[3 * i2 + 1], vertices[3 * i2 + 2]);
-//	f1.vertex[2] = glm::vec3(vertices[3 * i3], vertices[3 * i3 + 1], vertices[3 * i3 + 2]);
-//
-//	f1.uv[0] = glm::vec2(texture_coords[2 * i1], texture_coords[2 * i1 + 1]);
-//	f1.uv[1] = glm::vec2(texture_coords[2 * i2], texture_coords[2 * i2 + 1]);
-//	f1.uv[2] = glm::vec2(texture_coords[2 * i3], texture_coords[2 * i3 + 1]);
-//	return f1;
-//}
-//void gaussBlur_1(float** scl, float** tcl, int w, int h, float r)
-//{
-//	float rs = ceil(r * 2.57f);     // significant radius
-//	for (int i = 0; i<h; i++)
-//		for (int j = 0; j<w; j++)
-//		{
-//			float val = 0, wsum = 0;
-//			for (int iy = i - rs; iy < i + rs + 1; iy++)
-//				for (int ix = j - rs; ix<j + rs + 1; ix++) {
-//					int x = min(w - 1, max(0, ix));
-//					int y = min(h - 1, max(0, iy));
-//					int dsq = (ix - j)*(ix - j) + (iy - i)*(iy - i);
-//					float wght = exp(-dsq / (2 * r*r)) / (M_PI * 2 * r*r);
-//					val += scl[y][x] * wght;  wsum += wght;
-//				}
-//			tcl[i][j] = round(val / wsum);
-//		}
-//}
+float ObliczObwod(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3)
+{
+	glm::vec3 tmp = v2 - v1;
+	float a = glm::length(tmp);
+
+	tmp = v3 - v1;
+	float b = glm::length(tmp);
+
+	tmp = v3 - v2;
+	float c = glm::length(tmp);
+
+	return a + b + c;
+}
+
+float ObliczPole(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3)
+{
+	float p = .5f * ObliczObwod(v1, v2, v3);
+
+	glm::vec3 tmp = v2 - v1;
+	float a = glm::length(tmp);
+
+	tmp = v3 - v1;
+	float b = glm::length(tmp);
+
+	tmp = v3 - v2;
+	float c = glm::length(tmp);
+
+	return sqrt(p*(p - a)*(p - b)*(p - c));
+}
+glm::vec3 CalculateTangents(const SFace& f)
+{
+	glm::vec3 delat_pos_1 = f.vertexes.v2 - f.vertexes.v1;
+	glm::vec3 delat_pos_2 = f.vertexes.v3 - f.vertexes.v1;
+
+	glm::vec2 delta_uv_1 = f.vertexes.uv2 - f.vertexes.uv1;
+	glm::vec2 delta_uv_2 = f.vertexes.uv3 - f.vertexes.uv1;
+
+	float r = 1.0f / (delta_uv_1.x * delta_uv_2.y - delta_uv_1.y * delta_uv_2.x);
+	delat_pos_1 *= delta_uv_2.y;
+	delat_pos_2 *= delta_uv_1.y;
+	glm::vec3 tangent = delat_pos_1 - delat_pos_2;
+	tangent *= r;
+	return tangent;
+}
+SFace CreateFace(const int& i1, const int& i2, const int& i3, vector<float>& vertices, std::vector<float>& texture_coords)
+{
+	SFace f;
+	f.vertexes.v1 = glm::vec3(vertices[3 * i1], vertices[3 * i1 + 1], vertices[3 * i1 + 2]);
+	f.vertexes.v2 = glm::vec3(vertices[3 * i2], vertices[3 * i2 + 1], vertices[3 * i2 + 2]);
+	f.vertexes.v3 = glm::vec3(vertices[3 * i3], vertices[3 * i3 + 1], vertices[3 * i3 + 2]);
+
+	f.vertexes.uv1 = glm::vec2(texture_coords[2 * i1], texture_coords[2 * i1 + 1]);
+	f.vertexes.uv2 = glm::vec2(texture_coords[2 * i2], texture_coords[2 * i2 + 1]);
+	f.vertexes.uv3 = glm::vec2(texture_coords[2 * i3], texture_coords[2 * i3 + 1]);
+	return f;
+}
+void gaussBlur_1(float** scl, float** tcl, int w, int h, float r)
+{
+	float rs = ceil(r * 2.57f);     // significant radius
+	for (int i = 0; i<h; i++)
+		for (int j = 0; j<w; j++)
+		{
+			float val = 0, wsum = 0;
+			for (int iy = i - rs; iy < i + rs + 1; iy++)
+				for (int ix = j - rs; ix<j + rs + 1; ix++) {
+					int x = min(w - 1, max(0, ix));
+					int y = min(h - 1, max(0, iy));
+					int dsq = (ix - j)*(ix - j) + (iy - i)*(iy - i);
+					float wght = exp(-dsq / (2 * r*r)) / (M_PI * 2 * r*r);
+					val += scl[y][x] * wght;  wsum += wght;
+				}
+			tcl[i][j] = round(val / wsum);
+		}
+}
 
 CTerrain::CTerrain(CLoader &loader)
 	: m_Loader(loader)
+	, m_TriangleStrip(false)
 {
 	m_Name = "No name terrain";
 	m_Id = s_ID++;
@@ -97,7 +127,7 @@ void CTerrain::Init(string name,
 
 	try
 	{
-		m_BlendMap = m_Loader.LoadFullTexture(blend_map, m_BlendMapData, m_BlendMapWidth, m_BlendMapHeight);
+		m_BlendMap = m_Loader.LoadFullTexture(blend_map, m_BlendMapData, m_BlendMapWidth, m_BlendMapHeight, true, false);
 		m_BackgroundTexture[0] = m_Loader.LoadTexture(background_texture);
 		m_RTexture[0] = m_Loader.LoadTexture(r_texture);
 		m_GTexture[0] = m_Loader.LoadTexture(g_texture);
@@ -232,41 +262,45 @@ void CTerrain::CreateTerrain()
 	CreateTerrainVertexes(0, 0, m_HeightMapResolution, m_HeightMapResolution);
 	int pointer = 0;
 	//Triaagnle strip
-	for (unsigned short gz = 0; gz < m_HeightMapResolution - 1; gz++)
-	{
-		if ((gz & 1) == 0)
-		{ // even rows
-			for (unsigned short gx = 0; gx < m_HeightMapResolution; gx++)
-			{
-				m_Indices.push_back(gx + gz * m_HeightMapResolution);
-				m_Indices.push_back(gx + (gz + 1) * m_HeightMapResolution);
-			}
-		}
-		else
-		{ // odd rows
-			for (unsigned short gx = m_HeightMapResolution - 1; gx > 0; gx--)
-			{
-				m_Indices.push_back(gx + (gz + 1) * m_HeightMapResolution);
-				m_Indices.push_back(gx - 1 + +gz * m_HeightMapResolution);
-			}
-		}
-	}
-
-	//for (unsigned short i = 0 ; i < m_Indices.size() ; i+=3)
+	int x = 0;
+	//for (unsigned short gz = 0; gz < m_HeightMapResolution - 1; gz++)
 	//{
-	//	SFace tmp = CreateFace(m_Indices[i], m_Indices[i+1], m_Indices[i+2], m_Vertices, m_TextureCoords);
-	//	glm::vec3 tang = CalculateTangents(tmp);
-	//	m_Tangens.push_back(tang.x);
-	//	m_Tangens.push_back(tang.y);
-	//	m_Tangens.push_back(tang.z);
+	//	if ((gz & 1) == 0)
+	//	{ // even rows
+	//		for (unsigned short gx = 0; gx < m_HeightMapResolution ; gx++)
+	//		{
+	//			m_Indices.push_back(gx + gz * m_HeightMapResolution);
+	//			m_Indices.push_back(gx + (gz + 1) * m_HeightMapResolution);
+	//		}
 	//	}
-	/*for (int gz = 0; gz <m_VertexCount - 1; gz++)
+	//	else
+	//	{ // odd rows
+	//		for (unsigned short gx = m_HeightMapResolution - 1; gx > 0; gx--)
+	//		{
+	//			m_Indices.push_back(gx + (gz + 1) * m_HeightMapResolution);
+	//			m_Indices.push_back(gx - 1 + gz * m_HeightMapResolution);
+	//		}
+	//	}
+
+	/*	if (x >= 2)
+		{
+			SFace tmp = CreateFace(m_Indices[x - 2], m_Indices[x - 1], m_Indices[x], m_Vertices, m_TextureCoords);
+			glm::vec3 tang = CalculateTangents(tmp);
+		}
+		x++;*/
+//	}
+//	cout << m_Indices.size() << endl;
+//	m_Tangens.resize(3 * m_Indices.size());
+
+	
+
+	for (int gz = 0; gz <m_HeightMapResolution - 1; gz++)
 	{
-	for (int gx = 0; gx <m_VertexCount - 1; gx++)
+	for (int gx = 0; gx <m_HeightMapResolution - 1; gx++)
 	{
-	int topLeft = (gz*m_VertexCount) + gx;
+	int topLeft = (gz*m_HeightMapResolution) + gx;
 	int topRight = topLeft + 1;
-	int bottomLeft = ((gz + 1)*m_VertexCount) + gx;
+	int bottomLeft = ((gz + 1)*m_HeightMapResolution) + gx;
 	int bottomRight = bottomLeft + 1;
 
 	SFace tmp = CreateFace(topLeft, bottomLeft, topRight, m_Vertices, m_TextureCoords);
@@ -291,7 +325,16 @@ void CTerrain::CreateTerrain()
 	m_Indices.push_back(bottomRight);
 	}
 
-	}*/
+	}
+
+	//for (unsigned int i = 0; i < m_Indices.size() - 2; i++)
+	//{
+	//	SFace tmp = CreateFace(m_Indices[i], m_Indices[i + 1], m_Indices[i + 2], m_Vertices, m_TextureCoords);
+	//	glm::vec3 tang = CalculateTangents(tmp);
+	//	m_Tangens.push_back(tang.x);
+	//	m_Tangens.push_back(tang.y);
+	//	m_Tangens.push_back(tang.z);
+	//}
 
 	SMaterial material;
 	CMesh* n = m_Model.AddMesh("Terrain", m_Vertices, m_TextureCoords, m_Normals, m_Tangens, m_Indices, material);
@@ -395,7 +438,7 @@ vector<glm::vec3> CTerrain::GenerateGrassPositions(const string & filename, cons
 			GLubyte g_old = m_BlendMapData[mx + 1];
 			GLubyte r_old = m_BlendMapData[mx + 0];
 
-			if(b_old > 128 || g_old > 128 || r_old > 128)
+			if(b_old > 25 || g_old > 25 || r_old > 25)
 				continue;
 
 			file << position.x << "x" << position.y << "x" << position.z << endl;			
@@ -449,9 +492,10 @@ vector<glm::vec3> CTerrain::GenerateTreePositions(const string & filename, const
 			GLubyte g_old = m_BlendMapData[mx + 1];
 			GLubyte r_old = m_BlendMapData[mx + 0];
 
-			if (b_old > 128 || g_old > 128 || r_old > 128)
+			//if (b_old > 128 || g_old > 128 || r_old > 128)
+			//	continue;
+			if (b_old > 1 || g_old < 250 || r_old > 1)
 				continue;
-
 			file << position.x << "x" << position.y << "x" << position.z << endl;
 			if(seleced_nr < 0)
 				file << rand() % trees << "x" << static_cast<float>(rand()%static_cast<int>(1000.f*size) - (1000.f*size)/2.f )/1000.f  << endl;

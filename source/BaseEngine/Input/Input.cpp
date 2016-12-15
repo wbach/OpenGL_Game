@@ -30,6 +30,7 @@ void CInput::SetDefaultKeys()
 	m_KeyGameActions[GameActions::ITEM_4] = KeyCodes::W;
 	m_KeyGameActions[GameActions::ITEM_5] = KeyCodes::W;
 	m_KeyGameActions[GameActions::ITEM_6] = KeyCodes::W;
+	m_KeyGameActions[GameActions::WORLD_MAP] = KeyCodes::M;
 }
 
 bool CInput::GetKeyDown(KeyCodes::Type  i)

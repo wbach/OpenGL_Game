@@ -27,6 +27,7 @@ namespace GameActions
 		ITEM_4,
 		ITEM_5,
 		ITEM_6,
+		WORLD_MAP,
 		COUNT
 	};
 }

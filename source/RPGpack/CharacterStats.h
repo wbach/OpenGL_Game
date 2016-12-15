@@ -12,7 +12,7 @@ struct SCharacterStats
 	int m_MaxStamina = 50;
 	
 	float m_Range = 1.f;
-	float m_RunSpeed = Utils::KmToMs(15.f);
+	float m_RunSpeed = Utils::KmToMs(45.f);
 	float m_WalkSpeed = Utils::KmToMs(5.f);
 	float m_CurrentMoveSpeed = 0.f;
 	float m_CurrentTurnSpeed = 0.f;

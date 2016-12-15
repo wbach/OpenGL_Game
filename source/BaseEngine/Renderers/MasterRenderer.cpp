@@ -30,6 +30,7 @@ void CMasterRenderer::Init(CCamera* camera, glm::vec2 window_size, glm::mat4& pr
 	m_TerrainGeometryPassShader.Start();
 	m_TerrainGeometryPassShader.LoadProjectionMatrix(projection_matrix);
 	m_TerrainGeometryPassShader.LoadViewDistance(view_distance +50);
+	m_TerrainGeometryPassShader.LoadUseNormalMap(1.0f);
 	m_TerrainGeometryPassShader.Stop();
 
 	m_LightPassShader.Init();

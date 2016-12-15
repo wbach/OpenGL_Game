@@ -14,6 +14,7 @@ public:
 	void LoadToShadowSpaceMatrix(const glm::mat4& matrix) const;
 	void LoadShadowValues(const float& is, const float& distance, const float& shadow_map_size) const;
 	void LoadViewDistance(const float& distance) const;
+	void LoadUseNormalMap(const float& use) const;
 private:
 	void ConnectTextureUnits() const;
 	
@@ -36,7 +37,7 @@ private:
 	int location_shadowMap;
 	int location_ToShadowMapSpace;
 
-	
+	int location_UseNormalMap;
 
 	// Matrixes location
 	int location_transformationMatrix;

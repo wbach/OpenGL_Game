@@ -114,4 +114,6 @@ private:
 
 	int m_Id;
 	static int s_ID;
+
+	bool m_TriangleStrip;
 };

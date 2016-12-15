@@ -55,6 +55,8 @@ void CTerrainGeometryPassShader::GetAllUniformLocations()
 	location_ShadowVariables = GetUniformLocation("ShadowVariables");
 	location_shadowMap		  = GetUniformLocation("ShadowMap");
 	location_ToShadowMapSpace = GetUniformLocation("ToShadowMapSpace");
+
+	location_UseNormalMap = GetUniformLocation("IsUseNormalMap");
 }
 
 void CTerrainGeometryPassShader::BindAttributes()
@@ -91,4 +93,7 @@ void CTerrainGeometryPassShader::LoadViewDistance(const float& distance) const
 {
 	LoadValue(location_ViewDistance, distance);
 }
-
+void CTerrainGeometryPassShader::LoadUseNormalMap(const float& use) const
+{
+	LoadValue(location_UseNormalMap, use);
+}

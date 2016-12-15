@@ -34,7 +34,7 @@ public:
 	int		LoadMesh(string file_name, bool time_update = false, bool skip_if_exist = true);
 	int		LoadTexture(string file_name, bool vertical_flip = false);
 	int		LoadTextureImmediately(string file_name, bool vertical_flip = false, bool fullresolution = false);
-	int		LoadFullTexture(string file_name, GLubyte *&data, int &width, int &height);
+	int		LoadFullTexture(string file_name, GLubyte *&data, int &width, int &height, bool vertical_flip = false, bool horizontal_flip = false);
 	int		LoadCubeMap(const vector<string>& filenames);
 	void	CreateEmptyImage(const std::string filename, int width, int height);
 	void	ReloadTexture(string file_name, GLuint& texture_id);

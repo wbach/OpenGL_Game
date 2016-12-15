@@ -11,6 +11,8 @@ namespace RPGGuiElements
 		GUI_COMPAS,
 		HP_BAR,
 		HP_HERO_BAR,
+		WORLD_MAP,
+		WORLD_MAP_POINTER,
 		COUNT
 	};
 }
@@ -25,10 +27,12 @@ public:
 	void UpdateStatsWindow(CHero* player);
 	void UpdateCompas(CHero* player);
 	void UpdateBars(CHero* hero);
+	void UpdateMapPointer(CHero* hero);
 	virtual void GUIActions() override;
 	virtual void AssignActions() override;
 		
 	CGUIElement* m_GUIElements[RPGGuiElements::COUNT];
 	CInputManager& m_InputManager;
 
+	float m_TerrainSize = 1000;
 };

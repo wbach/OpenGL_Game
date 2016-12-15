@@ -7,6 +7,11 @@ void CRPGGUIManager::ApplyInputs()
 		if(m_GUIElements[RPGGuiElements::CHARACTER_STATISTIC_WINDOW] != nullptr)
 			m_GUIElements[RPGGuiElements::CHARACTER_STATISTIC_WINDOW]->m_IsVisible = !m_GUIElements[RPGGuiElements::CHARACTER_STATISTIC_WINDOW]->m_IsVisible;
 	}
+	if (m_InputManager.GetKeyDown(GameActions::WORLD_MAP))
+	{
+		if (m_GUIElements[RPGGuiElements::WORLD_MAP] != nullptr)
+			m_GUIElements[RPGGuiElements::WORLD_MAP]->m_IsVisible = !m_GUIElements[RPGGuiElements::WORLD_MAP]->m_IsVisible;
+	}
 	if (m_InputManager.GetKeyDown(GameActions::GUI_INVENTORY_WINDOW))
 	{
 		if (m_GUIElements[RPGGuiElements::GUI_INVENTORY_WINDOW] != nullptr)
@@ -47,6 +52,7 @@ void CRPGGUIManager::Update(CHero * player)
 	UpdateStatsWindow(player);
 	UpdateCompas(player);
 	UpdateBars(player);
+	UpdateMapPointer(player);
 }
 
 void CRPGGUIManager::UpdateStatsWindow(CHero * player)
@@ -166,6 +172,19 @@ void CRPGGUIManager::UpdateBars(CHero * hero)
 	m_GUIElements[RPGGuiElements::HP_BAR]->SetPosition(glm::vec2(o_position.x  - diff, o_position.y));
 }
 
+void CRPGGUIManager::UpdateMapPointer(CHero * hero)
+{
+	if (hero == nullptr)
+		return;
+
+	glm::vec2 pposition = hero->GetPositionXZ() / m_TerrainSize;
+	glm::vec2 map_size = m_GUIElements[RPGGuiElements::WORLD_MAP]->GetSize();
+	pposition -= glm::vec2(map_size);
+	pposition.y *= -1;
+	m_GUIElements[RPGGuiElements::WORLD_MAP_POINTER]->SetPosition(pposition);
+
+}
+
 void CRPGGUIManager::GUIActions()
 {
 	ApplyInputs();
@@ -178,8 +197,16 @@ void CRPGGUIManager::AssignActions()
 		if (el->GetName().compare("Stats") == 0)
 		{
 			m_GUIElements[RPGGuiElements::CHARACTER_STATISTIC_WINDOW] = el.get();
+			el->m_IsVisible = false;
 			continue;
 		}		
+
+		if (el->GetName().compare("WorldMap") == 0)
+		{
+			m_GUIElements[RPGGuiElements::WORLD_MAP] = el.get();
+			el->m_IsVisible = false;
+			//continue;
+		}
 
 		if (el->GetName().compare("HeroBar") == 0)
 		{
@@ -197,6 +224,11 @@ void CRPGGUIManager::AssignActions()
 			if (sel->GetName().compare("Compas") == 0)
 			{
 				m_GUIElements[RPGGuiElements::GUI_COMPAS] = sel.get();
+				continue;
+			}
+			if (sel->GetName().compare("Pointer") == 0)
+			{
+				m_GUIElements[RPGGuiElements::WORLD_MAP_POINTER] = sel.get();
 				continue;
 			}
 			if (sel->GetName().compare("HPbar") == 0)

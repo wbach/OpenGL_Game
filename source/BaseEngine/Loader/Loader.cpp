@@ -115,9 +115,9 @@ int CLoader::LoadTextureImmediately(string file_name, bool vertical_flip, bool f
 	return m_TextureLoader.LoadTexture(file_name, true, vertical_flip, fullresolution);
 }
 
-int  CLoader::LoadFullTexture(string file_name, GLubyte *& data, int & width, int & height)
+int  CLoader::LoadFullTexture(string file_name, GLubyte *& data, int & width, int & height, bool vertical_flip, bool horizontal_flip)
 {
-	return m_TextureLoader.LoadFullTexture(file_name, true, data, width, height);
+	return m_TextureLoader.LoadFullTexture(file_name, true, data, width, height, false, vertical_flip, horizontal_flip);
 }
 
 int  CLoader::LoadCubeMap(const vector<string>& filenames)
