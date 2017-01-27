@@ -17,6 +17,7 @@ class CGameObject
 {
 public:
 	CGameObject();
+	virtual ~CGameObject() {}
 	virtual void Create() {}
 	void SetModelId(unsigned int model_id, std::string path = "");
 	void SetName(std::string name);

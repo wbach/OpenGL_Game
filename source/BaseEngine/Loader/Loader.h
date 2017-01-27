@@ -49,7 +49,6 @@ private:
 	CTextureLoader	m_TextureLoader;
 	unordered_map<int, int>   m_IndexesInFrame;
 	vector<int>	m_IndexesUpdatingModels;
-	std::thread animation_thread;
 	bool m_UpdateThreadRun;
 };
 

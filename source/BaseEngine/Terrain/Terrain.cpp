@@ -83,6 +83,7 @@ CTerrain::CTerrain(CLoader &loader)
 	m_Name = "No name terrain";
 	m_Id = s_ID++;
 	m_IsInit = false;
+	m_IsSet = false;
 }
 CTerrain::~CTerrain()
 {
@@ -91,7 +92,36 @@ CTerrain::~CTerrain()
 	if (m_BlendMapData != nullptr)
 		delete[] m_BlendMapData;
 }
-void CTerrain::Init(string name,
+void CTerrain::Init()
+{
+	if (!m_IsSet)
+		return;
+	try
+	{
+		m_BlendMap = m_Loader.LoadFullTexture(m_BlendMapPath, m_BlendMapData, m_BlendMapWidth, m_BlendMapHeight, true, false);
+		m_BackgroundTexture[0] = m_Loader.LoadTexture(m_BackgorungTexturePath[0]);
+		m_RTexture[0] = m_Loader.LoadTexture(m_RTexturePath[0]);
+		m_GTexture[0] = m_Loader.LoadTexture(m_GTexturePath[0]);
+		m_BTexture[0] = m_Loader.LoadTexture(m_BTexturePath[0]);
+		m_BackgroundTexture[1] = m_Loader.LoadTexture(m_BackgorungTexturePath[1]);
+		m_RTexture[1] = m_Loader.LoadTexture(m_RTexturePath[1]);
+		m_GTexture[1] = m_Loader.LoadTexture(m_GTexturePath[1]);
+		m_BTexture[1] = m_Loader.LoadTexture(m_BTexturePath[1]);
+		m_RockTexture[0] = m_Loader.LoadTexture(m_RockTexturePath[0]);
+		m_RockTexture[1] = m_Loader.LoadTexture(m_RockTexturePath[1]);
+		GenerateTerrainMap(m_Loader, m_HeightMapPath);
+	}
+	catch (const std::exception& e)
+	{
+		throw e;
+	}
+
+	m_WorldCenterPosition = glm::vec3(TERRAIN_SIZE) / 2.f + m_Transform.position;
+	m_WorldCenterPosition.y = 0;
+
+	m_IsInit = true;
+}
+void CTerrain::Set(string name,
 	float x, float z,
 	string height_map,  string blend_map,
 	string background_texture, string background_normal_texture,
@@ -125,33 +155,8 @@ void CTerrain::Init(string name,
 	m_Transform.position.y = 0;
 	m_Transform.position.z = z * TERRAIN_SIZE;	
 
-	try
-	{
-		m_BlendMap = m_Loader.LoadFullTexture(blend_map, m_BlendMapData, m_BlendMapWidth, m_BlendMapHeight, true, false);
-		m_BackgroundTexture[0] = m_Loader.LoadTexture(background_texture);
-		m_RTexture[0] = m_Loader.LoadTexture(r_texture);
-		m_GTexture[0] = m_Loader.LoadTexture(g_texture);
-		m_BTexture[0] = m_Loader.LoadTexture(b_texture);
-		m_BackgroundTexture[1] = m_Loader.LoadTexture(background_normal_texture);
-		m_RTexture[1] = m_Loader.LoadTexture(r_normal_texture);
-		m_GTexture[1] = m_Loader.LoadTexture(g_normal_texture);
-		m_BTexture[1] = m_Loader.LoadTexture(b_normal_texture);
-		m_RockTexture[0] = m_Loader.LoadTexture(rock_texture);
-		m_RockTexture[1] = m_Loader.LoadTexture(rock_normal_texture);
-		GenerateTerrainMap(m_Loader, height_map);
-	}
-	catch (const std::exception& e)
-	{
-		throw e;
-	}
-
 	m_Name = name;
-
-	m_WorldCenterPosition = glm::vec3(TERRAIN_SIZE) / 2.f + m_Transform.position ;
-	m_WorldCenterPosition.y = 0;
-
-	m_IsInit = true;	
-
+	m_IsSet = true;
 }
 void CTerrain::InitHeights(int x, int y)
 {

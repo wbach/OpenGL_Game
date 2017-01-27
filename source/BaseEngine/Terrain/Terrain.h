@@ -9,7 +9,7 @@
 #include <math.h>
 #include "glm/glm.hpp"
 #include "Grass.h"
-
+#include <map>
 static const float MAX_PIXEL_COLOUR = 256.0f * 256.0f * 256.0f;
 static const float TERRAIN_SIZE = 100.f;
 static const int IndicesGridWidth = 500;
@@ -20,7 +20,15 @@ struct SPaintInfo
 	glm::vec2 Point;
 	float value;
 };
-
+namespace TerrainElements
+{
+	enum Type
+	{
+		GRASS,
+		OBJECT,
+		TREE
+	};
+}
 class CTerrain : public CGameObject
 {	
 public:	
@@ -29,7 +37,8 @@ public:
 
 	bool m_IsInit = false;
 
-	void Init(string name, 
+	void Init();
+	void Set(string name, 
 		float x, float z,
 		string height_map, string blend_map,		
 		string background_texture, string background_normal_texture, 
@@ -99,6 +108,7 @@ public:
 	int m_BTexture[2];
 	int m_RockTexture[2];
 	std::string m_HeightMapPath, m_BlendMapPath, m_BackgorungTexturePath[2], m_RTexturePath[2], m_BTexturePath[2], m_GTexturePath[2], m_RockTexturePath[2];	
+	//std::string 
 private:
 	std::vector<unsigned short> m_Indices;
 	std::vector<float> m_Vertices;
@@ -116,4 +126,5 @@ private:
 	static int s_ID;
 
 	bool m_TriangleStrip;
+	bool m_IsSet;
 };

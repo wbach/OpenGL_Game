@@ -156,7 +156,7 @@ class CModel
 {	
 public:
 	CModel();
-	
+	virtual ~CModel() {}
 	virtual void InitModel(string file_name) = 0;
 	virtual void Update(float dt) {};
 	virtual const std::vector<glm::mat4>& GetBonesTransforms(unsigned int mesh_id) {return  std::vector<glm::mat4>();}

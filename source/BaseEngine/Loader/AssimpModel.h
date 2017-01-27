@@ -12,7 +12,7 @@ class CAssimModel  : public CModel
 {
 public:
 	CAssimModel(CTextureLoader& texture_lodaer);
-	~CAssimModel();
+	virtual ~CAssimModel() override;
 	virtual void	InitModel(string file_name) override;
 	static void		ReadCollisions(string file_name, vector<float>& postions, vector<float>& normals, vector<unsigned int>& indices);	
 	const string&	GetName() const;

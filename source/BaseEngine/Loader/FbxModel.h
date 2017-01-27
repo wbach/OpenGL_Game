@@ -10,7 +10,7 @@ class CFbxModel : public CModel
 {
 public:
 	CFbxModel(CTextureLoader& texture_lodaer);
-	~CFbxModel();
+	virtual ~CFbxModel() override;
 	virtual void	InitModel(string file_name) override;
 	const	string&	GetName() const;
 private:

@@ -52,7 +52,7 @@ int CRPGMainScene::Initialize()
 		//CreateEmptyHeightMap(height_map, 32, 32);
 		try
 		{
-			current_terrain->Init(name,
+			current_terrain->Set(name,
 				(float)x, (float)z,
 				height_map, blend_map,
 				"Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01_NRM.png",
@@ -61,6 +61,7 @@ int CRPGMainScene::Initialize()
 				"Data/Textures/G3_Nature_Ground_Forest_01_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Forest_01_Diffuse_01_NRM.png",
 				"Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png", "Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01_Normal.png"
 			);
+			current_terrain->Init();
 			//continue;
 
 			string grass_file = "Data/Terrain/GrassPositions/terrain_" + name + ".terrain";
@@ -184,9 +185,61 @@ int CRPGMainScene::Update()
 			gui->RenderHerosBars(m_Game->GetProjectionMatrix(), m_Camera->GetViewMatrix(), m_InteractedEntitiesInCameraRange);
 		}		
 	}
-		
+	
+	COpenGLObject* obj = m_Loader.GetObjectToOpenGLLoadingPass();
+	if (obj != nullptr)
+	{
+		obj->OpenGLLoadingPass();
+	}
 
 	return 0;
+}
+
+void CRPGMainScene::BackgroungLoadingThread()
+{
+	bool is_somthing = false;
+	while (true)
+	{
+		is_somthing = false;
+		CGameObject* obj = GetObjectLoad();
+		if (obj != nullptr)
+		{
+			is_somthing = true;
+			CTerrain* terrain = dynamic_cast<CTerrain*>(obj);
+			terrain->Init();
+		}	
+
+		if (!is_somthing)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		}
+	}
+}
+
+void CRPGMainScene::AddTerrainToLoad(const float & x, const float & z)
+{
+	CTerrain* terrain = GetTerrain(x, z);
+	if (terrain != nullptr)
+	{
+		if (terrain->m_IsInit)
+			return;
+	}
+	std::lock_guard<std::mutex>m(m_MutexO);
+	m_BackgroundLoadingObjects.push_back(terrain);
+}
+
+CGameObject * CRPGMainScene::GetObjectLoad()
+{
+	std::lock_guard<std::mutex>m(m_MutexO);
+	CGameObject* obj = m_BackgroundLoadingObjects.back();
+	m_BackgroundLoadingObjects.pop_back();
+	return obj;
+}
+
+void CRPGMainScene::AddObjectToLoad(CGameObject * obj)
+{
+	std::lock_guard<std::mutex>m(m_MutexO);
+	m_BackgroundLoadingObjects.push_back(obj);
 }
 
 

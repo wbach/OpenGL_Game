@@ -77,7 +77,7 @@ public:
 				//CreateEmptyHeightMap(height_map, 32, 32);
 				try 
 				{
-					current_terrain->Init(name,
+					current_terrain->Set(name,
 						(float)x, (float)z,
 						height_map, blend_map,
 						"Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01.png", "Data/Textures/G3_Nature_Ground_Grass_01_Diffuse_01.png",
@@ -86,7 +86,7 @@ public:
 						"Data/Textures/G3_Nature_Wall_Stone_12_Diffuse_01.png", "Data/Textures/G3_Nature_Wall_Stone_12_Diffuse_01.png",
 						"Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png", "Data/Textures/G3_Architecture_Ground_City_03_Diffuse_01.png"
 					);
-
+					current_terrain->Init();
 					string grass_file = "Data/Terrain/GrassPositions/terrain_" + name + ".terrain";
 					//current_terrain.GenerateGrassPositions(grass_file, 10000, 1.0f);
 					current_terrain->InitGrassFromFile(grass_file, m_Loader.LoadTexture("Data/Textures/G3_Nature_Plant_Grass_06_Diffuse_01.png"));
